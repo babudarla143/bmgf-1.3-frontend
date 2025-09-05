@@ -348,6 +348,7 @@ select {
 .loading-dots span {
   width: 6px;
   height: 6px;
+  text:"Loading..."
   background: white;   /* you can change to black/green based on button */
   border-radius: 50%;
   display: inline-block;
