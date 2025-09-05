@@ -554,7 +554,13 @@ export default function AdviceBox(props) {
                   if (type === "audio") {
                     const audioRes = await dialoguesToAudioText(line.text, sessionId);
                     if (audioRes?.audio_url) {
-                      const response = await fetch(`https://bfa0bf612fb1.ngrok-free.app/outputs/${audioRes.audio_url.replace("./outputs/", "")}`);
+                      const response = await fetch(`https://bfa0bf612fb1.ngrok-free.app/outputs/${audioRes.audio_url.replace("./outputs/", "")}`,
+                                                   {
+                                                    headers: {
+                                                      "ngrok-skip-browser-warning": "true",
+                                                    },
+                                                  }
+                                                );
                       const blobData = await response.blob();
                       await storeAudio(key, blobData);
                       audioUrl = URL.createObjectURL(blobData);
@@ -562,7 +568,13 @@ export default function AdviceBox(props) {
                   } else if (type === "azure_audio") {
                     const audioRes = await generateAzureOdiaAudio(line.text);
                     if (audioRes?.audio_file) {
-                      const response = await fetch(`https://bfa0bf612fb1.ngrok-free.app/azure_audios/${audioRes.audio_file.split("/").pop()}`);
+                      const response = await fetch(`https://bfa0bf612fb1.ngrok-free.app/azure_audios/${audioRes.audio_file.split("/").pop()}`,
+                                                    {
+                                                    headers: {
+                                                      "ngrok-skip-browser-warning": "true",
+                                                    },
+                                                  }
+                                                );
                       const blobData = await response.blob();
                       await storeAudio(key, blobData);
                       audioUrl = URL.createObjectURL(blobData);
