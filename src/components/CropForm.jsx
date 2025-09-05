@@ -264,9 +264,23 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
         </div>
 
         <br />
+{/*         <button onClick={handleSubmit} disabled={loading}>
+            {loading ? "Loading......." : "Generate advisories"}
+          </button> */}
         <button onClick={handleSubmit} disabled={loading}>
-            {loading ? "Fetching....." : "Generate advisories"}
-          </button>
+          {loading ? (
+            <div className="loading-text">
+              Loading
+              <span className="loading-dots">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </span>
+            </div>
+          ) : (
+            "Get AI Advice"
+          )}
+        </button>
       </div>
       {forecastForDate && (
         <div className="weatherbox fade-in">
