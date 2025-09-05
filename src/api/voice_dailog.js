@@ -5,7 +5,7 @@ const API_ADVICE = "https://bfa0bf612fb1.ngrok-free.app/api/advice";
 const API_VOICE = "https://bfa0bf612fb1.ngrok-free.app/api/voice";
 const API_VOICE_ADVICE = "https://bfa0bf612fb1.ngrok-free.app/api/voice-advice";
 const API_AZURE = "https://bfa0bf612fb1.ngrok-free.app/api/azure_voice"; 
-
+axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
 // -------------------------
 // 1. Translate Audio (Voice Router)
 // -------------------------
