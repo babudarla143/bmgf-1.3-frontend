@@ -32,6 +32,7 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
   const [date, setDate] = useState("");
   const [adviceList, setAdviceList] = useState([]);
   const [forecastForDate, internalSetForecastForDate] = useState(null);
+  const [loading, setLoading] = useState(false);
   const cropStages = {
     Potato: [
       "Planting", "Emergence", "Vegetative Growth", "Tuber Initiation",
@@ -143,7 +144,7 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
         longitude: villageLatLon?.longitude,
         village: selectedVillage,
       });
-
+      setLoading(true)
       setAdviceData(response);
       if (response?.advice_list?.length > 0) {
         setAdviceList(response.advice_list);
@@ -261,7 +262,8 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
         </div>
 
         <br />
-        <button onClick={handleSubmit}>Get AI Advice</button>
+        <button onClick={handleSubmit} disabled={loading}>
+        {loading ? "Generating..." : "Get AI Advice"}</button>
       </div>
       {forecastForDate && (
         <div className="weatherbox fade-in">
