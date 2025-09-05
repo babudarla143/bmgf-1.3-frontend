@@ -134,6 +134,7 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     const location = `${selectedState}, ${selectedDistrict}, ${selectedSubDistrict}, ${selectedVillage}`;
     try {
       const response = await getAdvice({
@@ -144,7 +145,6 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
         longitude: villageLatLon?.longitude,
         village: selectedVillage,
       });
-      setLoading(true)
       setAdviceData(response);
       if (response?.advice_list?.length > 0) {
         setAdviceList(response.advice_list);
@@ -160,6 +160,8 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
 
     } catch (error) {
       console.error("Error fetching advice:", error);
+    }finally {
+    setLoading(false); 
     }
   };
 
