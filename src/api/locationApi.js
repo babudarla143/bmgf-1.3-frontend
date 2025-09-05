@@ -215,7 +215,7 @@ export const downloadApiTimings = () => {
   XLSX.utils.book_append_sheet(workbook, worksheet, "APITimings");
   XLSX.writeFile(workbook, "api_timings.xlsx"); // Download in browser
 };
-
+axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
 // ---------------------------
 // Axios interceptors to track all API calls
 // ---------------------------
