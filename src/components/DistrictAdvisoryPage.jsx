@@ -174,7 +174,10 @@
 //   );
 // }
  
+ 
+ 
 // =========================================================================================================================================================
+ 
  
 // import { useEffect, useState } from "react";
 // import {
@@ -398,6 +401,7 @@
  
 //=========================================================================================================================
  
+ 
 import { useEffect, useState } from "react";
 import {
   getStates,
@@ -406,9 +410,8 @@ import {
 } from "../api/locationApi";
  
 import "./DistrictAdvisoryPage.css";
-import axios from "axios";
  
-// Extract Answer Utility
+// ✅ Extract Answer Utility
 const extractAnswer = (text) => {
   if (typeof text !== "string") return text;
   let answerText = text;
@@ -423,13 +426,12 @@ const extractAnswer = (text) => {
   ];
   cutPoints.forEach((marker) => {
     const markerIdx = answerText.indexOf(marker);
-    if (markerIdx !== -1)
-      answerText = answerText.substring(0, markerIdx).trim();
+    if (markerIdx !== -1) answerText = answerText.substring(0, markerIdx).trim();
   });
   return cleanAdviceText(answerText);
 };
  
-// Simple cleaner (remove unwanted line breaks/spaces)
+// ✅ Simple cleaner (remove unwanted line breaks/spaces)
 const cleanAdviceText = (text) => {
   return text.replace(/\s+/g, " ").trim();
 };
@@ -456,9 +458,7 @@ export default function DistrictAdvisoryPage() {
   const [filePath, setFilePath] = useState("");
   const [popupMsg, setPopupMsg] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const [editRowIdx, setEditRowIdx] = useState(null);
-  const [editedAdvisory, setEditedAdvisory] = useState("");
-  const [username, setUsername] = useState("");
+ 
   const showCustomPopup = (msg) => {
     setPopupMsg(msg);
     setShowPopup(true);
@@ -479,17 +479,13 @@ export default function DistrictAdvisoryPage() {
  
   const onGenerate = async () => {
     if (!selectedDistrict || !date) {
-      showCustomPopup("Please select district and date");
+        showCustomPopup("Please select district and date");
       return;
     }
  
     setLoading(true);
     try {
-      const data = await generateDistrictAdvisories(
-        selectedDistrict,
-        date,
-        crop
-      );
+      const data = await generateDistrictAdvisories(selectedDistrict, date, crop);
       // Clean advisories before saving into state
       const cleanedRows = (data?.rows || []).map((row) => ({
         ...row,
@@ -511,81 +507,23 @@ export default function DistrictAdvisoryPage() {
     const picked = new Date(value);
     picked.setHours(0, 0, 0, 0);
  
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
+    const futureLimit = new Date();
+    futureLimit.setDate(today.getDate() + 15);
  
-    // 14 days limit (not including 15th)
-    const futureLimit = new Date(today);
-    futureLimit.setDate(today.getDate() + 14);
- 
-    if (picked < yesterday) {
-      showCustomPopup(
-        "Wrong date! Only yesterday, today, or next 14 days allowed."
-      );
+    if (picked < today) {
+      showCustomPopup(" Wrong date! Please select from today onwards.");
       setDate("");
       return;
     }
  
     if (picked > futureLimit) {
-      showCustomPopup(
-        "Wrong date! Only yesterday, today, or next 14 days allowed."
-      );
+      showCustomPopup(" Wrong date! Please select within 15 days from today.");
       setDate("");
       return;
     }
  
-    //  Valid date
     setDate(value);
   };
-  const handleEdit = (row, idx) => {
-    setEditRowIdx(idx);
-    setEditedAdvisory(row.advisory);
-  };
- 
-  const handleSave = (idx) => {
-    const updatedRows = [...rows];
-    updatedRows[idx].advisory = editedAdvisory;
-    setRows(updatedRows);
-    setEditRowIdx(null);
-    setEditedAdvisory("");
-  };
- 
-  // const handleValidate = async (row) => {
-  //   try {
-  //     const currentTime = new Date().toISOString(); // timestamp
- 
-  //     const storedUsername = localStorage.getItem("username") || "";
-  //     console.log("Stored Username:", storedUsername);
-  //     const storedPassword = localStorage.getItem("password") || "";
-  //     console.log("Stored Password:", storedPassword);
- 
-  //     await axios.post("https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/login/save-login", {
-  //       username: storedUsername, // actual username
-  //       password: storedPassword, // actual password
-  //       login_time: currentTime, // login/validate time
-  //       validated: true, // clicked validate or not
-  //       validated_time: currentTime, // time of validation click
-  //       row_info: row, // which row got validated
-  //     },
-  //      {
-  //       headers: { "ngrok-skip-browser-warning": "true" }
-  //      }
-  //     );
- 
-  //     // Update frontend row
-  //     const updatedRows = rows.map((r) =>
-  //       r === row ? { ...r, validated: true, validated_time: currentTime } : r
-  //     );
-  //     setRows(updatedRows);
- 
-  //     showCustomPopup(
-  //       `Row for ${row.village} validated successfully at ${currentTime}!`
-  //     );
-  //   } catch (err) {
-  //     console.error(err);
-  //     showCustomPopup("Failed to save validation info!");
-  //   }
-  // };
  
   return (
     <div style={{ padding: 16 }}>
@@ -598,23 +536,18 @@ export default function DistrictAdvisoryPage() {
             display: "grid",
             gridTemplateColumns: "repeat(5, 1fr)",
             gap: 20,
-            width: "auto",
-            height: "auto",
+            width:"auto",
+            height:"auto",
             marginLeft: "150px",
           }}
         >
           {/* State */}
           <div>
             <label>State</label>
-            <select
-              value={selectedState}
-              onChange={(e) => setSelectedState(e.target.value)}
-            >
+            <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
               <option value="">-- Select State --</option>
               {states.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
+                <option key={s} value={s}>{s}</option>
               ))}
             </select>
           </div>
@@ -629,9 +562,7 @@ export default function DistrictAdvisoryPage() {
             >
               <option value="">-- Select District --</option>
               {districts.map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
+                <option key={d} value={d}>{d}</option>
               ))}
             </select>
           </div>
@@ -646,8 +577,9 @@ export default function DistrictAdvisoryPage() {
             />
           </div>
  
+ 
           {/* Crop */}
-          <div style={{ marginLeft: "30px" }}>
+          <div style={{ marginLeft:"30px" }}>
             <label>Crop</label>
             <select value={crop} onChange={(e) => setCrop(e.target.value)}>
               <option value="Paddy">Paddy</option>
@@ -658,32 +590,22 @@ export default function DistrictAdvisoryPage() {
         </div>
  
         {/* Crop Stage */}
-        <div
-          className="form-row"
-          style={{ marginTop: 12, width: "500px", marginLeft: "150px" }}
-        >
+        <div className="form-row" style={{ marginTop: 12, width:"500px", marginLeft:"150px" }}>
           <label>Crop Stage</label>
           {["paddy", "rice"].includes(crop?.toLowerCase().trim()) ? (
-            <input
-              type="text"
-              value={stage}
-              readOnly
-              placeholder="Auto-fetched stage"
-            />
+            <input type="text" value={stage} readOnly placeholder="Auto-fetched stage" />
           ) : (
             <select value={stage} onChange={(e) => setStage(e.target.value)}>
               <option value="">-- Select Stage --</option>
               {cropStages[crop]?.map((s, i) => (
-                <option key={i} value={s}>
-                  {s}
-                </option>
+                <option key={i} value={s}>{s}</option>
               ))}
             </select>
           )}
         </div>
  
         {/* Generate Button */}
-        <div style={{ marginTop: 12, marginLeft: "130px" }}>
+        <div style={{ marginTop: 12,marginLeft:"130px" }}>
           <button onClick={onGenerate} disabled={loading}>
             {loading ? "Generating..." : "Generate advisories"}
           </button>
@@ -699,15 +621,7 @@ export default function DistrictAdvisoryPage() {
       {rows.length > 0 && (
         <div className="card_2 fade-in" style={{ padding: 16 }}>
           <h3>Generated Advisories</h3>
-          <div
-            style={{
-              flex: 1,
-              marginTop: 16,
-              width: "100%",
-              height: "100%",
-              overflow: "auto",
-            }}
-          >
+          <div style={{ flex: 1, marginTop: 16, width: "100%", height: "100%", overflow: "auto" }}>
             <table
               rules="all"
               className="table"
@@ -734,56 +648,25 @@ export default function DistrictAdvisoryPage() {
                   <th>Wind_Speed</th>
                   <th>Wind_Direction</th>
                   <th>Advisory</th>
-                  <th>Validates</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map((r, idx) => (
                   <tr key={idx}>
                     <td>{r.village}</td>
-                    <td>{r.latitude?.toFixed(3)}</td>
-                    <td>{r.longitude?.toFixed(3)}</td>
+                    <td>{r.latitude ? r.latitude.toFixed(3) : ""}</td>
+                    <td>{r.longitude ? r.longitude.toFixed(3) : ""}</td>
                     <td>{r.date}</td>
                     <td>{r.crop}</td>
                     <td>{r.stage}</td>
-                    <td>{r.Rainfall?.toFixed(2)}</td>
-                    <td>{r.Tmin?.toFixed(2)}</td>
-                    <td>{r.Tmax?.toFixed(2)}</td>
-                    <td>{r.RH?.toFixed(2)}</td>
-                    <td>{r.Wind_Speed?.toFixed(2)}</td>
-                    <td>{r.Wind_Direction?.toFixed(2)}</td>
-                    <td className="advice">
-                      {editRowIdx === idx ? (
-                        <textarea
-                          value={editedAdvisory}
-                          onChange={(e) => setEditedAdvisory(e.target.value)}
-                          style={{ width: "100%", minHeight: "50px" }}
-                        />
-                      ) : (
-                        r.advisory
-                      )}
-                    </td>
-                    <td>
-                      {editRowIdx === idx ? (
-                        <button onClick={() => handleSave(idx)}>Save</button>
-                      ) : (
-                        <button
-                          onClick={() => handleEdit(r, idx)}
-                          style={{ marginRight: 8 }}
-                        >
-                          Edit
-                        </button>
-                      )}
-                      <button
-                        onClick={() => handleValidate(r)}
-                        style={{
-                          backgroundColor: r.validated ? "#28a745" : "#007bff",
-                          color: "#fff",
-                        }}
-                      >
-                        {r.validated ? "Validated" : "Validate"}
-                      </button>
-                    </td>
+                    <td>{r.Rainfall ? r.Rainfall.toFixed(2) : ""}</td>
+                    <td>{r.Tmin ? r.Tmin.toFixed(2) : ""}</td>
+                    <td>{r.Tmax ? r.Tmax.toFixed(2) : ""}</td>
+                    <td>{r.RH ? r.RH.toFixed(2) : ""}</td>
+                    <td>{r.Wind_Speed ? r.Wind_Speed.toFixed(2) : ""}</td>
+                    <td>{r.Wind_Direction ? r.Wind_Direction.toFixed(2) : ""}</td>
+                    <td className="advice">{r.advisory}</td>
+                    <td ></td>
                   </tr>
                 ))}
               </tbody>
@@ -791,16 +674,15 @@ export default function DistrictAdvisoryPage() {
           </div>
         </div>
       )}
- 
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <p>{popupMsg}</p>
-            <button onClick={() => setShowPopup(false)}>OK</button>
-          </div>
+   
+    {showPopup && (
+      <div className="popup-overlay">
+        <div className="popup">
+          <p>{popupMsg}</p>
+          <button onClick={() => setShowPopup(false)}>OK</button>
         </div>
-      )}
+      </div>
+    )}
     </div>
   );
 }
- 
