@@ -26,7 +26,7 @@ function MainApp() {
   const [isEditing, setIsEditing] = useState(false);
   const [editableTranscript, setEditableTranscript] = useState(transcript);
   const [activeTab, setActiveTab] = useState("form");
-
+ 
   const handleStartRecording = async () => {
     if (!isRecording) {
       // --- START recording ---
@@ -38,11 +38,11 @@ function MainApp() {
           audio: true,
         });
         mediaRecorderRef.current = new window.MediaRecorder(stream);
-
+ 
         mediaRecorderRef.current.ondataavailable = (e) => {
           audioChunksRef.current.push(e.data);
         };
-
+ 
         mediaRecorderRef.current.onstop = async () => {
           setTranscript("Processing...");
           const audioBlob = new Blob(audioChunksRef.current, {
@@ -51,15 +51,12 @@ function MainApp() {
           const formData = new FormData();
           formData.append("audio", audioBlob, "recording.wav");
           formData.append("lang", LANG_MAP[language] || "en");
-
+ 
           try {
             const response = await fetch(
-              "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/voice/translate",
+              "http://localhost:8000/api/voice/translate",
               {
                 method: "POST",
-                headers: {
-                  "ngrok-skip-browser-warning": "true"
-                },
                 body: formData,
               }
             );
@@ -77,7 +74,7 @@ function MainApp() {
             setTranscript("Network or server error.");
           }
         };
-
+ 
         mediaRecorderRef.current.start();
         setTranscript("Recording...");
       } catch (err) {
@@ -98,7 +95,7 @@ function MainApp() {
       }
     }
   };
-
+ 
   const handleFormSubmit = (data) => {
     console.log("Form Submitted:", data);
   };
@@ -106,13 +103,10 @@ function MainApp() {
     const payload = { transcript: text };
     try {
       const response = await fetch(
-        "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/voice-advice/voice_advice",
+        "http://localhost:8000/api/voice-advice/voice_advice",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         }
       );
@@ -122,7 +116,7 @@ function MainApp() {
       console.error("Failed to fetch advisory:", err);
     }
   };
-
+ 
   useEffect(() => {
     setAdviceData(null);
     setForecastForDate(null);
@@ -131,33 +125,33 @@ function MainApp() {
   useEffect(() => {
     setEditableTranscript(transcript);
   }, [transcript]);
-
+ 
   return (
     <div className="container">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "10px 20px",
-        }}
-      >
-        <h1>AI AgroAdvisor</h1>
-        <div className="button-group">
-          <button onClick={downloadApiTimings} className="download-btn">
-            ⬇ API Timings
-          </button>
-          <button
-            onClick={() => {
-              localStorage.removeItem("isLoggedIn");
-              window.location.href = "/login";
-            }}
-            className="logout-btn"
-          >
-            Logout
-          </button>
-        </div>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        padding: "10px 20px",
+      }}
+    >
+      <h1>AI AgroAdvisor</h1>
+      <div className="button-group">
+        <button onClick={downloadApiTimings} className="download-btn">
+          ⬇ API Timings
+        </button>
+        <button
+          onClick={() => {
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "/login";
+          }}
+          className="logout-btn"
+        >
+           Logout
+        </button>
       </div>
-
+    </div>
+ 
       <p
         style={{
           textAlign: "center",
@@ -195,7 +189,7 @@ function MainApp() {
           District Advisory Generator
         </button>
       </div>
-
+ 
       {/* Only show Form/Voice UI if not on District Advisory Generator */}
       {activeTab === "form" && (
         <div
@@ -220,13 +214,13 @@ function MainApp() {
             <WeatherBox forecastData={forecastForDate} />
             {adviceData && (
               <div style={{ marginTop: "10px" }}>
-                <AdviceBox adviceData={adviceData} />
+                <AdviceBox adviceData={adviceData}  />
               </div>
             )}
           </div>
         </div>
       )}
-
+ 
       {activeTab === "voice" && (
         <div
           style={{
@@ -251,7 +245,7 @@ function MainApp() {
               <p style={{ marginBottom: "15px", color: "#555" }}>
                 Speak your crop details...
               </p>
-
+ 
               <label htmlFor="language" className="language-label">
                 Choose Language
               </label>
@@ -265,7 +259,7 @@ function MainApp() {
                 <option value="hi-IN">हिन्दी (Hindi)</option>
                 <option value="or-IN">ଓଡ଼ିଆ (Odia)</option>
               </select>
-
+ 
               <div className="mb-8">
                 <button
                   onClick={handleStartRecording}
@@ -289,7 +283,7 @@ function MainApp() {
                   </p>
                 )}
               </div>
-
+ 
               {transcript && (
                 <div className="transcript-wrapper">
                   {isEditing ? (
@@ -303,7 +297,7 @@ function MainApp() {
                       {editableTranscript || transcript}
                     </p>
                   )}
-
+ 
                   <div className="transcript-actions">
                     <button
                       className="edit-btn"
@@ -327,7 +321,7 @@ function MainApp() {
               )}
             </div>
           </div>
-
+ 
           {/* Right side: Weather + Advice shown together */}
           {adviceData && (
             <div style={{ flex: 1 }}>
@@ -354,37 +348,32 @@ function MainApp() {
           />
         </div>
       )}
-
+ 
       {/* Only show DistrictAdvisoryPage on District Advisory Generator tab */}
       {activeTab === "district" && <DistrictAdvisoryPage />}
-
+ 
       {/* <footer style={{ textAlign: "center", marginTop: "30px", color: "#aaa" }}>
         © 2025 AgriAdvisor AI. All rights reserved.
       </footer> */}
     </div>
   );
 }
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
-
-  useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    setIsLoggedIn(loggedIn);
-  }, []);
-
-  if (isLoggedIn === null) {
-    // loader to prevent black page flicker
-    return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>;
-  }
-
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={isLoggedIn ? <MainApp /> : <Navigate to="/login" replace />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
-  );
-}
+// function App() {
+//   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+ 
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/login" element={<Login />} />
+//         <Route
+//           path="/home"
+//           element={isLoggedIn ? <MainApp /> : <Navigate to="/login" />}
+//         />
+//         <Route path="/" element={<Navigate to="/login" />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+ 
+ 
 export default App;
