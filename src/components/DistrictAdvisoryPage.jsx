@@ -4,26 +4,26 @@
 //   getDistricts,
 //   generateDistrictAdvisories,
 // } from "../api/locationApi";
- 
+
 // import "./DistrictAdvisoryPage.css";
- 
+
 // export default function DistrictAdvisoryPage() {
 //   const [states, setStates] = useState([]);
 //   const [districts, setDistricts] = useState([]);
- 
+
 //   const [selectedState, setSelectedState] = useState("");
 //   const [selectedDistrict, setSelectedDistrict] = useState("");
 //   const [date, setDate] = useState("");
 //   const [crop, setCrop] = useState("Paddy");
- 
+
 //   const [loading, setLoading] = useState(false);
 //   const [rows, setRows] = useState([]);
 //   const [filePath, setFilePath] = useState("");
- 
+
 //   useEffect(() => {
 //     getStates().then(setStates);
 //   }, []);
- 
+
 //   useEffect(() => {
 //     if (selectedState) {
 //       getDistricts(selectedState).then(setDistricts);
@@ -32,7 +32,7 @@
 //       setSelectedDistrict("");
 //     }
 //   }, [selectedState]);
- 
+
 //   const onGenerate = async () => {
 //     if (!selectedDistrict || !date) {
 //       alert("Please select district and date");
@@ -50,12 +50,12 @@
 //       setLoading(false);
 //     }
 //   };
- 
+
 //   return (
 //     <div style={{ padding: 16 }}>
 //       <div className="card_2" style={{ padding: 16, marginBottom: 24 }}>
 //         <h2>District Advisory Generator</h2>
- 
+
 //         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
 //           <div>
 //             <label>State</label>
@@ -66,7 +66,7 @@
 //               ))}
 //             </select>
 //           </div>
- 
+
 //           <div>
 //             <label>District</label>
 //             <select value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedState}>
@@ -76,12 +76,12 @@
 //               ))}
 //             </select>
 //           </div>
- 
+
 //           <div>
 //             <label>Date</label>
 //             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
 //           </div>
- 
+
 //           <div>
 //             <label>Crop</label>
 //             <select value={crop} onChange={(e) => setCrop(e.target.value)}>
@@ -91,7 +91,7 @@
 //             </select>
 //           </div>
 //         </div>
- 
+
 //         <div style={{ marginTop: 12 }}>
 //           <button onClick={onGenerate} disabled={loading}>
 //             {loading ? "Generating..." : "Generate advisories"}
@@ -103,7 +103,7 @@
 //           )}
 //         </div>
 //       </div>
- 
+
 //       {/* ---- Output Table in a separate card ---- */}
 //       {rows.length > 0 && (
 //         <div className="card_2" style={{ padding: 16 }}>
@@ -173,46 +173,46 @@
 //     </div>
 //   );
 // }
- 
- 
- 
+
+
+
 // =========================================================================================================================================================
- 
- 
+
+
 // import { useEffect, useState } from "react";
 // import {
 //   getStates,
 //   getDistricts,
 //   generateDistrictAdvisories,
 // } from "../api/locationApi";
- 
+
 // import "./DistrictAdvisoryPage.css";
- 
+
 // export default function DistrictAdvisoryPage() {
 //   const [states, setStates] = useState([]);
 //   const [districts, setDistricts] = useState([]);
- 
+
 //   const [selectedState, setSelectedState] = useState("");
 //   const [selectedDistrict, setSelectedDistrict] = useState("");
 //   const [date, setDate] = useState("");
 //   const [crop, setCrop] = useState("Paddy");
 //   const [stage, setStage] = useState("");
- 
+
 //   const cropStages = {
 //     Wheat: ["Sowing", "Vegetative", "Reproductive", "Maturity"],
 //     Potato: ["Planting", "Vegetative", "Tuber Formation", "Harvest"],
 //     Paddy: ["Nursery", "Transplanting", "Tillering", "Flowering", "Maturity"],
 //     Rice: ["Nursery", "Transplanting", "Tillering", "Flowering", "Maturity"],
 //   };
- 
+
 //   const [loading, setLoading] = useState(false);
 //   const [rows, setRows] = useState([]);
 //   const [filePath, setFilePath] = useState("");
- 
+
 //   useEffect(() => {
 //     getStates().then(setStates);
 //   }, []);
- 
+
 //   useEffect(() => {
 //     if (selectedState) {
 //       getDistricts(selectedState).then(setDistricts);
@@ -221,13 +221,13 @@
 //       setSelectedDistrict("");
 //     }
 //   }, [selectedState]);
- 
+
 //   const onGenerate = async () => {
 //     if (!selectedDistrict || !date) {
 //       alert("Please select district and date");
 //       return;
 //     }
- 
+
 //     setLoading(true);
 //     try {
 //       const data = await generateDistrictAdvisories(selectedDistrict, date, crop);
@@ -240,13 +240,13 @@
 //       setLoading(false);
 //     }
 //   };
- 
+
 //   return (
 //     <div style={{ padding: 16 }}>
 //       {/* --- Input Card --- */}
 //       <div className="card_2" style={{ padding: 16, marginBottom: 24 }}>
 //         <h2>District Advisory Generator</h2>
- 
+
 //         <div
 //           style={{
 //             display: "grid",
@@ -267,7 +267,7 @@
 //               ))}
 //             </select>
 //           </div>
- 
+
 //           {/* District */}
 //           <div>
 //             <label>District</label>
@@ -282,13 +282,13 @@
 //               ))}
 //             </select>
 //           </div>
- 
+
 //           {/* Date */}
 //           <div>
 //             <label>Date</label>
 //             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
 //           </div>
- 
+
 //           {/* Crop */}
 //           <div style={{
 //             marginLeft:"30px"
@@ -302,7 +302,7 @@
 //             </select>
 //           </div>
 //         </div>
- 
+
 //         {/* Crop Stage */}
 //         <div className="form-row" style={{ marginTop: 12,
 //           width:"500px",
@@ -325,7 +325,7 @@
 //             </select>
 //           )}
 //         </div>
- 
+
 //         {/* Generate Button */}
 //         <div style={{ marginTop: 12,marginLeft:"130px" }}>
 //           <button onClick={onGenerate} disabled={loading}>
@@ -338,7 +338,7 @@
 //           )}
 //         </div>
 //       </div>
- 
+
 //       {/* --- Output Table --- */}
 //       {rows.length > 0 && (
 //         <div className="card_2 fade-in" style={{ padding: 16 }}>
@@ -398,18 +398,18 @@
 //     </div>
 //   );
 // }
- 
+
 //=========================================================================================================================
- 
+
 import { useEffect, useState } from "react";
 import {
   getStates,
   getDistricts,
   generateDistrictAdvisories,
 } from "../api/locationApi";
- 
+
 import "./DistrictAdvisoryPage.css";
- 
+
 // Extract Answer Utility
 const extractAnswer = (text) => {
   if (typeof text !== "string") return text;
@@ -430,29 +430,29 @@ const extractAnswer = (text) => {
   });
   return cleanAdviceText(answerText);
 };
- 
+
 // Simple cleaner (remove unwanted line breaks/spaces)
 const cleanAdviceText = (text) => {
   return text.replace(/\s+/g, " ").trim();
 };
- 
+
 export default function DistrictAdvisoryPage() {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
- 
+
   const [selectedState, setSelectedState] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [date, setDate] = useState("");
   const [crop, setCrop] = useState("Paddy");
   const [stage, setStage] = useState("");
- 
+
   // const cropStages = {
   //   Wheat: ["Sowing", "Vegetative", "Reproductive", "Maturity"],
   //   Potato: ["Planting", "Vegetative", "Tuber Formation", "Harvest"],
   //   Paddy: ["Nursery", "Transplanting", "Tillering", "Flowering", "Maturity"],
   //   Rice: ["Nursery", "Transplanting", "Tillering", "Flowering", "Maturity"],
   // };
- 
+
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState([]);
   const [filePath, setFilePath] = useState("");
@@ -465,11 +465,11 @@ export default function DistrictAdvisoryPage() {
     setPopupMsg(msg);
     setShowPopup(true);
   };
- 
+
   useEffect(() => {
     getStates().then(setStates);
   }, []);
- 
+
   useEffect(() => {
     if (selectedState) {
       getDistricts(selectedState).then(setDistricts);
@@ -478,13 +478,13 @@ export default function DistrictAdvisoryPage() {
       setSelectedDistrict("");
     }
   }, [selectedState]);
- 
+
   const onGenerate = async () => {
     if (!selectedDistrict || !date) {
       showCustomPopup("Please select district and date");
       return;
     }
- 
+
     setLoading(true);
     try {
       const data = await generateDistrictAdvisories(
@@ -509,17 +509,17 @@ export default function DistrictAdvisoryPage() {
   const handleDateChange = (value) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
- 
+
     const picked = new Date(value);
     picked.setHours(0, 0, 0, 0);
- 
+
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
- 
+
     // 14 days limit (not including 15th)
     const futureLimit = new Date(today);
     futureLimit.setDate(today.getDate() + 14);
- 
+
     if (picked < yesterday) {
       showCustomPopup(
         "Wrong date! Only yesterday, today, or next 14 days allowed."
@@ -527,7 +527,7 @@ export default function DistrictAdvisoryPage() {
       setDate("");
       return;
     }
- 
+
     if (picked > futureLimit) {
       showCustomPopup(
         "Wrong date! Only yesterday, today, or next 14 days allowed."
@@ -535,7 +535,7 @@ export default function DistrictAdvisoryPage() {
       setDate("");
       return;
     }
- 
+
     //  Valid date
     setDate(value);
   };
@@ -543,7 +543,7 @@ export default function DistrictAdvisoryPage() {
     setEditRowIdx(idx);
     setEditedAdvisory(row.advisory);
   };
- 
+
   const handleSave = (idx) => {
     const updatedRows = [...rows];
     updatedRows[idx].advisory = editedAdvisory;
@@ -551,7 +551,7 @@ export default function DistrictAdvisoryPage() {
     setEditRowIdx(null);
     setEditedAdvisory("");
   };
- 
+
   const handleValidate = async (row) => {
     const updated = rows.map((r) =>
       r.village === row.village ? { ...r, validated: true } : r
@@ -836,7 +836,7 @@ export default function DistrictAdvisoryPage() {
       "Harvesting",
     ],
   };
- 
+
   const cropStagesRabi = {
     Beetroot: [
       "Sowing",
@@ -1065,16 +1065,16 @@ export default function DistrictAdvisoryPage() {
       "Harvesting",
     ],
   };
- 
+
   const getSeason = (month) => {
     if ([6, 7, 8, 9, 10].includes(month)) return "Kharif";
     if ([11, 12, 1, 2, 3].includes(month)) return "Rabi";
     return null;
   };
- 
+
   // combine both seasons crop stages
   const allCropStages = { ...cropStagesKharif, ...cropStagesRabi };
- 
+
   return (
     <div style={{ padding: 16 }}>
       {/* --- Input Card --- */}
@@ -1106,7 +1106,7 @@ export default function DistrictAdvisoryPage() {
                 ))}
               </select>
             </div>
- 
+
             {/* District */}
             <div>
               <label>District</label>
@@ -1126,7 +1126,7 @@ export default function DistrictAdvisoryPage() {
                   ))}
               </select>
             </div>
- 
+
             {/* Date */}
             <div>
               <label>Date</label>
@@ -1136,7 +1136,7 @@ export default function DistrictAdvisoryPage() {
                 onChange={(e) => handleDateChange(e.target.value)}
               />
             </div>
- 
+
             {/* Crop */}
             <div style={{ marginLeft: "30px" }}>
               <label>Crop</label>
@@ -1180,7 +1180,7 @@ export default function DistrictAdvisoryPage() {
               </select>
             )}
           </div>
- 
+
           {/* Generate Button */}
           <div style={{ marginTop: 12, marginLeft: "130px" }}>
             <button onClick={onGenerate} disabled={loading}>
@@ -1193,7 +1193,7 @@ export default function DistrictAdvisoryPage() {
             )}
           </div>
         </div>
- 
+
         {/* --- Output Table --- */}
         {rows.length > 0 && (
           <div className="card_2 fade-in" style={{ padding: 16 }}>
@@ -1256,7 +1256,15 @@ export default function DistrictAdvisoryPage() {
                           <textarea
                             value={editedAdvisory}
                             onChange={(e) => setEditedAdvisory(e.target.value)}
-                            style={{ width: "100%", minHeight: "50px" }}
+                            style={{
+                              width: "300px",
+                              height: "100px",
+                              padding: "8px",
+                              fontSize: "14px",
+                              // border: "1px solid #ccc",
+                              borderRadius: "6px",
+                              resize: "vertical",
+                            }}
                           />
                         ) : (
                           r.advisory
@@ -1292,7 +1300,7 @@ export default function DistrictAdvisoryPage() {
             </div>
           </div>
         )}
- 
+
         {showPopup && (
           <div className="popup-overlay">
             <div className="popup">
