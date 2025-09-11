@@ -550,42 +550,42 @@ export default function DistrictAdvisoryPage() {
     setEditedAdvisory("");
   };
  
-  const handleValidate = async (row) => {
-    try {
-      const currentTime = new Date().toISOString(); // timestamp
+  // const handleValidate = async (row) => {
+  //   try {
+  //     const currentTime = new Date().toISOString(); // timestamp
  
-      const storedUsername = localStorage.getItem("username") || "";
-      console.log("Stored Username:", storedUsername);
-      const storedPassword = localStorage.getItem("password") || "";
-      console.log("Stored Password:", storedPassword);
+  //     const storedUsername = localStorage.getItem("username") || "";
+  //     console.log("Stored Username:", storedUsername);
+  //     const storedPassword = localStorage.getItem("password") || "";
+  //     console.log("Stored Password:", storedPassword);
  
-      await axios.post("https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/login/save-login", {
-        username: storedUsername, // actual username
-        password: storedPassword, // actual password
-        login_time: currentTime, // login/validate time
-        validated: true, // clicked validate or not
-        validated_time: currentTime, // time of validation click
-        row_info: row, // which row got validated
-      },
-       {
-        headers: { "ngrok-skip-browser-warning": "true" }
-       }
-      );
+  //     await axios.post("https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/login/save-login", {
+  //       username: storedUsername, // actual username
+  //       password: storedPassword, // actual password
+  //       login_time: currentTime, // login/validate time
+  //       validated: true, // clicked validate or not
+  //       validated_time: currentTime, // time of validation click
+  //       row_info: row, // which row got validated
+  //     },
+  //      {
+  //       headers: { "ngrok-skip-browser-warning": "true" }
+  //      }
+  //     );
  
-      // Update frontend row
-      const updatedRows = rows.map((r) =>
-        r === row ? { ...r, validated: true, validated_time: currentTime } : r
-      );
-      setRows(updatedRows);
+  //     // Update frontend row
+  //     const updatedRows = rows.map((r) =>
+  //       r === row ? { ...r, validated: true, validated_time: currentTime } : r
+  //     );
+  //     setRows(updatedRows);
  
-      showCustomPopup(
-        `Row for ${row.village} validated successfully at ${currentTime}!`
-      );
-    } catch (err) {
-      console.error(err);
-      showCustomPopup("Failed to save validation info!");
-    }
-  };
+  //     showCustomPopup(
+  //       `Row for ${row.village} validated successfully at ${currentTime}!`
+  //     );
+  //   } catch (err) {
+  //     console.error(err);
+  //     showCustomPopup("Failed to save validation info!");
+  //   }
+  // };
  
   return (
     <div style={{ padding: 16 }}>
