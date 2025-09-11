@@ -35,7 +35,7 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
   const [loading, setLoading] = useState(false);
   const cropSeasonMap = {
     Kharif: [
-        "Rice","Maize", "Ragi", "Small millets", "Sorghum", "Pigeonpea (Redgram/Arhar)", "Greengram", "Blackgram", "Cowpea",
+        "Paddy","Maize", "Ragi", "Small millets", "Sorghum", "Pigeonpea (Redgram/Arhar)", "Greengram", "Blackgram", "Cowpea",
         "Horsegram", "Groundnut", "Sesamum", "Niger seed", "Castor", "Cotton", "Jute", "Sugarcane", "Brinjal", "Okra",
         "Tomato", "Cucurbits", "Colocasia", "Amaranthus", "Banana", "Papaya", "Mango", "Cashew", "Coconut"
     ],
