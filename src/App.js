@@ -371,15 +371,11 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/home"
-          element={isLoggedIn ? <CropForm /> : <Navigate to="/login" />}
-        />
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/home" element={isLoggedIn ? <CropForm /> : <Navigate to="/login" replace />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
 }
-
 
 export default App;
