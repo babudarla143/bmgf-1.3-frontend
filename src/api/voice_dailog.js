@@ -6,6 +6,7 @@ const API_VOICE = "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/a
 const API_VOICE_ADVICE = "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/voice-advice";
 const API_AZURE = "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/azure_voice"; 
 
+axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
 // -------------------------
 // 1. Translate Audio (Voice Router)
 // -------------------------
