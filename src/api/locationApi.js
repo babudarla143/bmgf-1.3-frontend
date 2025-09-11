@@ -171,6 +171,7 @@ import * as XLSX from "xlsx";
 
 const API_BASE = "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/location"; // Update if deployed
 const API_BASE_NO_PREFIX = "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/";
+axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
 
 // In-memory array to store API timings
 let apiTimings = [];
