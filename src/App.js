@@ -6,8 +6,7 @@ import WeatherBox from "./components/WeatherBox";
 import AdviceBox from "./components/AdviceBox";
 import DistrictAdvisoryPage from "./components/DistrictAdvisoryPage";
 import { downloadApiTimings } from "./api/locationApi";
-import Login from "./components/Login";
-function MainApp() {
+function App() {
   const [adviceData, setAdviceData] = useState(null);
   const [forecastForDate, setForecastForDate] = useState(null);
   const [enabled, setEnabled] = useState(false);
@@ -140,7 +139,7 @@ function MainApp() {
         <button onClick={downloadApiTimings} className="download-btn">
           ⬇ API Timings
         </button>
-        <button
+        {/* <button
           onClick={() => {
             localStorage.removeItem("isLoggedIn");
             window.location.href = "/login";
@@ -148,7 +147,7 @@ function MainApp() {
           className="logout-btn"
         >
            Logout
-        </button>
+        </button> */}
       </div>
     </div>
  
