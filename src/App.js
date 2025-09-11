@@ -365,17 +365,26 @@ function MainApp() {
   );
 }
 function App() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedIn);
+  }, []);
+
+  if (isLoggedIn === null) {
+    // loader to prevent black page flicker
+    return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>;
+  }
 
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={isLoggedIn ? <CropForm /> : <Navigate to="/login" replace />} />
+        <Route path="/home" element={isLoggedIn ? <MainApp /> : <Navigate to="/login" replace />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
 }
-
 export default App;
