@@ -851,7 +851,7 @@ export default function AdviceBox(props) {
                         }}
                       >
                         <b>{line.speaker}:</b>
-                        <span>{typedDialogues[index]?.[i] || ""}</span>
+                        <span>{typedDialogues[index]?.[i] || "Loading ......"}</span>
                       </div>
                     </div>
                   );
