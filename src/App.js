@@ -53,7 +53,7 @@ function App() {
  
           try {
             const response = await fetch(
-              "http://localhost:8000/api/voice/translate",
+              "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/voice/translate",
               {
                 method: "POST",
                 body: formData,
@@ -102,7 +102,7 @@ function App() {
     const payload = { transcript: text };
     try {
       const response = await fetch(
-        "http://localhost:8000/api/voice-advice/voice_advice",
+        "https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/voice-advice/voice_advice",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
