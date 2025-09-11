@@ -304,25 +304,28 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
   }, []);
  
   //  Fetch crop stage automatically if crop = Paddy
-  useEffect(() => {
-    const fetchStage = async () => {
-      if (crop === "Paddy" && selectedVillage && date) {
-        try {
-          const data = await getCropStage(selectedVillage, date);
-          if (data?.crop_stage) {
-            setStage(data.crop_stage);
-          }else {
-          showCustomPopup(" Crop stage data not available for this village.");
+useEffect(() => {
+  const fetchStage = async () => {
+    // Trigger auto-fetch only if crop is Paddy or Rice
+    if ((crop === "Paddy" || crop === "Rice") && selectedVillage && date) {
+      try {
+        const data = await getCropStage(selectedVillage, date);
+        if (data?.crop_stage) {
+          setStage(data.crop_stage);
+        } else {
+          showCustomPopup("Crop stage data not available for this village.");
+          setStage(""); // reset if not found
         }
-        } catch (err) {
-          console.error("Failed to fetch crop stage:", err);
-          setStage("");
-          showCustomPopup(" Failed to fetch crop stage. Please retry.");
-        }
+      } catch (err) {
+        console.error("Failed to fetch crop stage:", err);
+        setStage("");
+        showCustomPopup("Failed to fetch crop stage. Please retry.");
       }
-    };
-    fetchStage();
-  }, [crop, selectedVillage, date]);
+    }
+  };
+  fetchStage();
+}, [crop, selectedVillage, date]);
+
  
   const handleStateChange = (stateName) => {
     setSelectedState(stateName);
