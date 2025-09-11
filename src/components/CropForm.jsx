@@ -894,8 +894,6 @@ export default function CropForm({ setForecastForDate, onSubmit, setAdviceData }
                 <span>.</span>
                 <span>.</span>
                 <span>.</span>
-                <span>.</span>
-                <span>.</span>
               </span>
             </div>
           ) : (
