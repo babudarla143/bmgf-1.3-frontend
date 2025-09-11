@@ -578,7 +578,7 @@ export default function AdviceBox(props) {
                     const audioRes = await dialoguesToAudioText(line.speaker, line.text, sessionId);
                     console.log("results", audioRes)
                     if (audioRes?.audio_url) {
-                      const response = await fetch(`http://localhost:8000/outputs/${audioRes.audio_url.replace("./outputs/", "")}`,
+                      const response = await fetch(`https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/outputs/${audioRes.audio_url.replace("./outputs/", "")}`,
                         {
                           headers: {
                             "ngrok-skip-browser-warning": "true", // also set header here for fetch
@@ -593,7 +593,7 @@ export default function AdviceBox(props) {
                     if (audioRes?.audio_file) {
                       // Extract filename from path
                       const fileName = audioRes.audio_file.split("/").pop();
-                      const response = await fetch(`http://localhost:8000/azure_audios/${fileName}`, {
+                      const response = await fetch(`https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/azure_audios/${fileName}`, {
                         headers: { "ngrok-skip-browser-warning": "true" },
                       });
 
