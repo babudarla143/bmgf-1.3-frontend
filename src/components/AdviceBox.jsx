@@ -883,8 +883,8 @@ export default function AdviceBox(props) {
           marginBottom: "20px",
         }}
       >
-        <button onClick={() => setViewMode("paragraph")}>Generate Advisory</button>
-        <button onClick={() => setViewMode("conversation")}>Generate Dailogs</button>
+        <button onClick={() => setViewMode("paragraph")}>Generated Advisory</button>
+        <button onClick={() => setViewMode("conversation")}>Generated Dialouges</button>
         {/* Buttons to switch */}
         <button onClick={() => setViewMode("audio")}> Bhashini Audio</button>
         <button onClick={() => setViewMode("azure_audio")}>Azure Audio</button>
