@@ -13,13 +13,21 @@ import axios from 'axios';
 // Corrected getAdvice with trailing slash
 export const getAdvice = async ({ crop, stage, date, village }) => {
   try {
-    const res = await axios.post('https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/advice/get_advice', {
-      crop,
-      stage,
-      // location,
-      date,
-      village,
-    });
+    const res = await axios.post(
+      'https://lindsey-antidogmatical-unsumptuously.ngrok-free.app/api/advice/get_advice',
+      {
+        crop,
+        stage,
+        date,
+        village,
+      },
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }
+    );
+
     console.log("Response from getAdvice:", res.data);
     if (res.data?.advice_list?.length > 0) {
       console.log("Advice received:", res.data.advice_list);
